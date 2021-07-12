@@ -1,0 +1,48 @@
+﻿<NavigationWindow x:Class="SQClient.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:local="clr-namespace:SQClient"        
+        Title="SQClient" Height="560" Width="1024" ShowsNavigationUI="False">
+
+    <Window.TaskbarItemInfo>
+        <TaskbarItemInfo ProgressState="Normal"/>
+    </Window.TaskbarItemInfo>
+    
+    <NavigationWindow.Content>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.2*" MinWidth="100"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="0.8*" MinWidth="100"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0">
+                <StackPanel.Resources>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Setter Property="Margin" Value="12"/>
+                    </Style>
+                </StackPanel.Resources>
+
+                <TextBlock>
+                    <Hyperlink NavigateUri="Pages/DisplayDataStream.xaml" TargetName="frame">
+                        数据流    
+                    </Hyperlink>
+                </TextBlock>
+
+                <TextBlock>
+                    <Hyperlink NavigateUri="Pages/SendAndReceiveJpeg.xaml" TargetName="frame">
+                        收发JPEG
+                    </Hyperlink>
+                </TextBlock>
+            </StackPanel>
+
+            <GridSplitter Grid.Column="1" Width="4" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+
+            <Frame Name="frame" Grid.Column="2"/>
+        </Grid>
+    </NavigationWindow.Content>
+    
+</NavigationWindow>

@@ -1,0 +1,79 @@
+﻿<local:BaseUart x:Class="SQClient.Pages.DisplayDataStream"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SQClient.Pages"
+      mc:Ignorable="d" 
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"      
+      Title="Display DataStream">
+
+    <Page.Resources>
+        <x:Array Type="{x:Type sys:String}" x:Key="Numbers">
+            <sys:String>0</sys:String>
+            <sys:String>1</sys:String>
+            <sys:String>2</sys:String>
+            <sys:String>3</sys:String>
+            <sys:String>4</sys:String>
+            <sys:String>5</sys:String>
+            <sys:String>6</sys:String>
+            <sys:String>7</sys:String>
+            <sys:String>F</sys:String>
+        </x:Array>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <GroupBox Header="UART 9600#8-bit#0-parity#1-stop#none">
+            <StackPanel Orientation="Horizontal">
+                <ComboBox x:Name="comboPort" Width="120" Height="36" Margin="5" VerticalAlignment="Center">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate DataType="{x:Type sys:String}">
+                            <Label Content="{Binding}" VerticalContentAlignment="Center"></Label>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <ToggleButton x:Name="tglbtnConnect" Width="88" Height="36" Margin="5" Content="连接" Click="ConnectOnClick" IsChecked="False"/>
+                <GridSplitter Width="2" Height="36" Margin="4,0" Background="Gray"/>
+                <ToggleButton x:Name="tglbtnRecognize" Width="108" Height="36" Margin="5" Content="开启识别" Click="RecognizeOnClick" IsEnabled="False"/>
+
+                <Label Content="人:" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                <ComboBox x:Name="cbxPeople" Height="36" Width="50" SelectedIndex="0" ItemsSource="{StaticResource Numbers}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate DataType="{x:Type sys:String}">
+                            <Label Content="{Binding}" VerticalContentAlignment="Center"></Label>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <Label Content="脸:" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                <ComboBox x:Name="cbxFace" Height="36" Width="50" SelectedIndex="0" ItemsSource="{StaticResource Numbers}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate DataType="{x:Type sys:String}">
+                            <Label Content="{Binding}" VerticalContentAlignment="Center"></Label>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <Button x:Name="btnRegister" Width="88" Height="36" Margin="10,0,0,0" Content="录入" Click="RegisterOnClick" IsEnabled="False"/>
+                <Button x:Name="btnDelete" Width="88" Height="36" Margin="10,0,0,0" Content="删除" Click="DeleteOnClick" IsEnabled="False"/>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Grid.Row="1" Header="内容">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <ListBox x:Name="lstboxHis" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="360"/>
+
+                <Button Grid.Row="1" Content="清除" Width="70" Height="30" HorizontalAlignment="Right" Margin="5" VerticalAlignment="Center" Click="ClearOnClick"/>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</local:BaseUart>
