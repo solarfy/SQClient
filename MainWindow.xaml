@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:SQClient"        
-        Title="SQClient" Height="560" Width="1024" ShowsNavigationUI="False">
+        Title="SQClient" Height="700" Width="1300" ShowsNavigationUI="False">
 
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo ProgressState="Normal"/>
@@ -41,7 +41,7 @@
 
             <GridSplitter Grid.Column="1" Width="4" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
 
-            <Frame Name="frame" Grid.Column="2"/>
+            <Frame Name="frame" Grid.Column="2" Source="Pages/DisplayDataStream.xaml"/>
         </Grid>
     </NavigationWindow.Content>
     

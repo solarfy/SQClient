@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SQClient.Model;
+using System.IO;
 
 namespace SQClient.Pages
 {
@@ -21,6 +22,10 @@ namespace SQClient.Pages
     /// </summary>
     public partial class DisplayDataStream : BaseUart
     {
+        bool readySendJpeg = false;
+        FileInfo jpegFile;
+        byte[] fileStream;
+
         public DisplayDataStream()
         {
             InitializeComponent();          
@@ -70,6 +75,13 @@ namespace SQClient.Pages
                         RTX("RX", dvalue);
 
                         ListRead.RemoveRange(0, i + 8);
+                        
+                        //准备发送JPEG文件
+                        if (readySendJpeg && dvalue[2] == 0x02 && dvalue[3] == 0x06 && dvalue[4] == 0x00)
+                        {
+                            Write(fileStream);
+                            readySendJpeg = false;
+                        }
                     }
                 }
             }
@@ -112,6 +124,7 @@ namespace SQClient.Pages
                 this.tglbtnConnect.Content = "断开";
                 this.tglbtnRecognize.IsEnabled = true;
                 this.btnRegister.IsEnabled = true;
+                this.btnJpegRegister.IsEnabled = true;
                 this.btnDelete.IsEnabled = true;
             }
             else //断开
@@ -121,6 +134,7 @@ namespace SQClient.Pages
                 this.tglbtnConnect.Content = "连接";
                 this.tglbtnRecognize.IsEnabled = false;
                 this.btnRegister.IsEnabled = false;
+                this.btnJpegRegister.IsEnabled = false;
                 this.btnDelete.IsEnabled = false;
             }
         }
@@ -190,6 +204,36 @@ namespace SQClient.Pages
             this.lstboxHis.EndInit();
         }
 
-      
+        private void JpegRegisterOnClick(object sender, RoutedEventArgs e)
+        {
+            if (this.cbxPeople.SelectedIndex == 8 || this.cbxFace.SelectedIndex == 8)
+            {
+                MessageBox.Show("人脸录入不支持‘F’段录入", this.Title, MessageBoxButton.OK);
+                return;
+            }
+
+            if (AssertPortNull() < 0)
+            {
+                return;
+            }
+
+            Dialog.SelecteJpegFile dialog = new Dialog.SelecteJpegFile();
+            dialog.Owner = Application.Current.MainWindow;            
+            dialog.ShowDialog();
+
+            if (dialog.SelectedFile != null)
+            {
+                if (dialog.SelectedFile.Length > (24 * 1024))
+                {
+                    MessageBox.Show("最大文件24KB", this.Title, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    return;
+                }
+
+                jpegFile = dialog.SelectedFile;
+                fileStream = dialog.SelectedFileStream;
+                RTX("TX", Cmds.CMD_REGISTER_JPEG_ID((byte)this.cbxPeople.SelectedIndex, (byte)this.cbxFace.SelectedIndex, (uint)dialog.SelectedFile.Length));
+                readySendJpeg = true;                
+            }
+        }
     }
 }

@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Yang\source\repos\FaceApp\SQClient\App.xaml
-3-1260783940
+51236982081
 
-151372116538
-141183416626
-MainWindow.xaml;Pages\DisplayDataStream.xaml;Pages\SendAndReceiveJpeg.xaml;
+14-1945371017
+20-950413485
+Dialog\LocalCamera.xaml;Dialog\SelecteJpegFile.xaml;MainWindow.xaml;Pages\DisplayDataStream.xaml;Pages\SendAndReceiveJpeg.xaml;
 
-True
+False
 

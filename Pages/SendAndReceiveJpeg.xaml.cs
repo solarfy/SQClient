@@ -59,7 +59,7 @@ namespace SQClient.Pages
                     this.img.Source = Tools.ByteArrayToBitmapImage(ListRead.ToArray());                    
                 }
             };
-        }
+         }
 
         private void ConnectOnClick(object sender, RoutedEventArgs e)
         {
@@ -132,7 +132,7 @@ namespace SQClient.Pages
                 }
 
                 Write(TestCmds.CMD_SET_JPEG(fileLength));   //JPE发送G命令
-                await Task.Delay(200);
+                await Task.Delay(100);
                 Write(read);    //JPEG文件流
             }
         }
@@ -190,6 +190,11 @@ namespace SQClient.Pages
                     MessageBox.Show($"写入文件出错：{exc.Message}", this.Title, MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }                
             }
+        }
+
+        private void CameraOnClick(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

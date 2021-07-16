@@ -1,0 +1,24 @@
+﻿<Window x:Class="SQClient.Dialog.SelecteJpegFile"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SQClient.Dialog"        
+        Title="选择一个JPEG文件" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterOwner"
+        Background="Gray">
+    <DockPanel Margin="10">
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" DockPanel.Dock="Top" Height="30">
+            <TextBox x:Name="txtFile" Width="500" VerticalContentAlignment="Center" IsReadOnly="True"/>
+            <Button Content="选择" Width="60" Margin="4,0" Click="SelecteFileOnClick"/>
+            <Button Content="确认" Width="60" Click="ConfirmOnClick"/>
+        </StackPanel>
+
+        <Border Padding="20" BorderThickness="1" BorderBrush="Green" Margin="0, 4">
+            <Grid>
+                <Image Name="img" Height="240px" Width="320px" Stretch="None"/>
+            </Grid>
+        </Border>
+
+        
+    </DockPanel>
+</Window>

@@ -26,6 +26,9 @@
                 </ComboBox>
                 <ToggleButton x:Name="tglbtnConnect" Width="88" Height="36" Margin="5" Content="连接" Click="ConnectOnClick" IsChecked="False"/>
                 <GridSplitter Width="2" Height="36" Margin="4,0" Background="Gray"/>
+                
+                <Button x:Name="btnCamera" Width="88" Height="36" Margin="10,0,0,0" Content="本机拍照" Click="CameraOnClick" IsEnabled="True"
+                        ToolTip="本机摄像头拍照" Visibility="Collapsed"/>
 
                 <Button x:Name="btnReceive" Width="88" Height="36" Margin="10,0,0,0" Content="JPEG拍照" Click="ReceiveOnClick" IsEnabled="False"
                         ToolTip="从AI模块接收一张JPEG图片"/>
@@ -33,7 +36,7 @@
                 <TextBlock Name="textblkTimer" Text="00:00:00" VerticalAlignment="Center" FontSize="16" Margin="10,0,0,0"/>
 
                 <Button x:Name="btnSend" Width="88" Height="36" Margin="10,0,0,0" Content="JPEG录入" Click="SendOnClick" IsEnabled="False"
-                        ToolTip="发送一张JPEG图片至AI模块"/>
+                        ToolTip="发送一张JPEG图片至AI模块" Visibility="Collapsed"/>
             </StackPanel>
         </GroupBox>
 
