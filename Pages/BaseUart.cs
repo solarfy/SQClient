@@ -37,7 +37,8 @@ namespace SQClient.Pages
         {
             SP = new SerialPort();
             SP.PortName = protName;
-            SP.BaudRate = 9600;
+            //SP.BaudRate = 9600;            
+            SP.BaudRate = Globals.BaundRate;
             SP.DataBits = 8;
             SP.Parity = Parity.None;
             SP.StopBits = StopBits.One;
@@ -72,6 +73,25 @@ namespace SQClient.Pages
         public void Write(byte[] buffer)
         {
             SP.Write(buffer, 0, buffer.Length);
+        }
+
+        public void WritePerByte(byte[] buffer, int cout)
+        {
+            for (int i = 0; i < buffer.Length; )
+            {                
+                if (buffer.Length - i < cout)
+                    cout = buffer.Length - i;
+
+                SP.Write(buffer, i, cout);
+                i += cout;
+
+                System.Threading.Thread.Sleep(10);
+            }
+        }
+
+        public void DiscardOutBuffer()
+        {
+            SP.DiscardOutBuffer();
         }
 
         public void Write(byte[] buffer, int offset, int count)

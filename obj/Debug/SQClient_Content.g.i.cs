@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("pages/123.jpeg")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("model/ai.result.c")]
 
 

@@ -26,16 +26,34 @@ namespace SQClient.Model
         //开启识别
         public static byte[] CMD_START_RECOGNIZE()
         {
-            //byte[] data = new byte[8] { 0xA5, 0x5A, 0x04, 0x03, 0x00, 0x00, 0x00, 0x00 };
-            byte[] data = new byte[8] { 0xA5, 0x5A, 0x01, 0x03, 0x00, 0x00, 0x00, 0x00 };
+            byte[] data;
+
+            if (Globals.ProtocolVersion.Contains("0.4"))
+            {
+                data = new byte[8] { 0xA5, 0x5A, 0x04, 0x03, 0x00, 0x00, 0x00, 0x00 };     //骑管家 
+            }
+            else
+            {
+                data = new byte[8] { 0xA5, 0x5A, 0x01, 0x03, 0x00, 0x00, 0x00, 0x00 };
+            }
+
             return CheckData(data);
         }
 
         //关闭识别
         public static byte[] CMD_STOP_RECOGNIZE()
         {
-            //byte[] data = new byte[8] { 0xA5, 0x5A, 0x04, 0x05, 0x00, 0x00, 0x00, 0x00 };
-            byte[] data = new byte[8] { 0xA5, 0x5A, 0x01, 0x05, 0x00, 0x00, 0x00, 0x00 };
+            byte[] data;
+
+            if (Globals.ProtocolVersion.Contains("0.4"))
+            {
+                data = new byte[8] { 0xA5, 0x5A, 0x04, 0x05, 0x00, 0x00, 0x00, 0x00 };    //骑管家 
+            }
+            else
+            {
+                data = new byte[8] { 0xA5, 0x5A, 0x01, 0x05, 0x00, 0x00, 0x00, 0x00 };
+            }
+
             return CheckData(data);
         }
 
@@ -100,7 +118,7 @@ namespace SQClient.Model
                                 case 0x02: str = $"删除人脸 {string.Format(data[4] == 0 ? "成功" : "失败")}"; break;
                                 case 0x03: str = $"开启人脸识别{string.Format(data[4] == 0 ? "成功" : "失败")}"; break;
                                 case 0x05: str = $"关闭人脸识别{string.Format(data[4] == 0 ? "成功" : "失败")}"; break;
-                                case 0x06: str = $"AI模块JPEG人脸录入{string.Format(data[4] == 0 ? "已就绪" : "未就绪")}"; break;
+                                case 0x06: str = $"AI模块JPEG人脸录入{string.Format(data[5] == 0 ? "已就绪" : "未就绪")}"; break;
                                 default: break;
                             }
                             break;
@@ -111,7 +129,7 @@ namespace SQClient.Model
                                 case 0x03: str = "开启人脸识别"; break;
                                 case 0x04: str = $"识别到人脸 ID=0x{data[4]:X2}"; break;
                                 case 0x05: str = "关闭人脸识别"; break;
-                                case 0x07: str = $"人脸文件录入 ID=0x{data[4]:X2} {string.Format(data[5] == 0 ? "成功" : "失败")}"; break;
+                                case 0x07: str = $"人脸文件接收 ID=0x{data[4]:X2} {string.Format(data[5] == 0 ? "成功" : "失败")}"; break;
                                 default: break;
                             }
                             break;

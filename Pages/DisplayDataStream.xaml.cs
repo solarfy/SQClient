@@ -77,9 +77,10 @@ namespace SQClient.Pages
                         ListRead.RemoveRange(0, i + 8);
                         
                         //准备发送JPEG文件
-                        if (readySendJpeg && dvalue[2] == 0x02 && dvalue[3] == 0x06 && dvalue[4] == 0x00)
+                        if (readySendJpeg && dvalue[2] == 0x02 && dvalue[3] == 0x06 && dvalue[5] == 0x00)
                         {
-                            Write(fileStream);
+                            //Write(fileStream);                            
+                            WritePerByte(fileStream, 16);
                             readySendJpeg = false;
                         }
                     }
@@ -223,16 +224,46 @@ namespace SQClient.Pages
 
             if (dialog.SelectedFile != null)
             {
-                if (dialog.SelectedFile.Length > (24 * 1024))
-                {
-                    MessageBox.Show("最大文件24KB", this.Title, MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                    return;
-                }
+                //if (dialog.SelectedFile.Length > (24 * 1024))
+                //{
+                //    MessageBox.Show("最大文件24KB", this.Title, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                //    return;
+                //}
 
                 jpegFile = dialog.SelectedFile;
                 fileStream = dialog.SelectedFileStream;
                 RTX("TX", Cmds.CMD_REGISTER_JPEG_ID((byte)this.cbxPeople.SelectedIndex, (byte)this.cbxFace.SelectedIndex, (uint)dialog.SelectedFile.Length));
-                readySendJpeg = true;                
+                readySendJpeg = true;
+
+
+                ////提取文件特征点，并将该文件的特征点传入AI设备
+                //jpegFile = dialog.SelectedFile;
+                //AI ai = new AI();
+                //AI_Result result = ai.Extract(jpegFile.FullName);
+                ////AI_Result result = ai.ExtractLocal(jpegFile.FullName);
+
+                //if (result != null)
+                //{
+                //    RTX("TX", Cmds.CMD_REGISTER_JPEG_ID((byte)this.cbxPeople.SelectedIndex, (byte)this.cbxFace.SelectedIndex, (uint)result.ByteFeature.Length));
+                //    fileStream = result.ByteFeature;
+                //    readySendJpeg = true;
+
+                //    //foreach (var b in result.ByteFeature)
+                //    //{
+                //    //    Console.Write($"{b}  ");
+                //    //}
+                //    //Console.WriteLine();
+
+                //    foreach (var f in result.FloatFeature)
+                //    {
+                //        Console.Write($"{f}  ");
+                //    }
+                //    Console.WriteLine();
+                //}
+                //else
+                //{
+                //    MessageBox.Show("提取特征点失败！", this.Title, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                //}
             }
         }
     }

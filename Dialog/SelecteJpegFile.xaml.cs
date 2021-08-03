@@ -21,7 +21,9 @@ namespace SQClient.Dialog
     /// </summary>
     public partial class SelecteJpegFile : Window
     {
-        const string strFilter = "Jpeg files (*.jpeg; *.jpg)|*.jpeg; *.jpg";
+        const string strFilter = "Jpeg files (*.jpeg; *.jpg)|*.jpeg; *.jpg|All files (*.*)|*.*";
+
+        FileInfo tmpSelectFile;
 
         public FileInfo SelectedFile { private set; get; }        
         public byte[] SelectedFileStream { private set; get; }
@@ -48,22 +50,22 @@ namespace SQClient.Dialog
                     BitmapImage bitmap = new BitmapImage();
                     bitmap.BeginInit();
                     bitmap.StreamSource = new MemoryStream(SelectedFileStream);
-                    bitmap.EndInit();                    
-                    this.img.Source = bitmap;                    
+                    bitmap.EndInit();
+                    this.img.Source = bitmap;
 
-                    SelectedFile = new FileInfo(dlg.FileName);
-                    this.txtFile.Text = SelectedFile.FullName;
+                    tmpSelectFile = new FileInfo(dlg.FileName);                    
+                    this.txtFile.Text = tmpSelectFile.FullName;
                 }
                 catch (Exception exc)
                 {
                     MessageBox.Show($"打开文件出错：{exc.Message}", this.Title, MessageBoxButton.OK, MessageBoxImage.Exclamation);                    
                 }
             }
-
         }
 
         private void ConfirmOnClick(object sender, RoutedEventArgs e)
         {
+            SelectedFile = tmpSelectFile;
             this.Close();
         }
     }

@@ -28,7 +28,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <GroupBox Header="UART 9600#8-bit#0-parity#1-stop#none">
+        <GroupBox Header="UART #8-bit#0-parity#1-stop#none">
             <StackPanel Orientation="Horizontal">
                 <ComboBox x:Name="comboPort" Width="120" Height="36" Margin="5" VerticalAlignment="Center">
                     <ComboBox.ItemTemplate>

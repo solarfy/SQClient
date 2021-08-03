@@ -25,6 +25,23 @@ namespace SQClient.Model
             data[6] = (byte)(0xff & length);
             return CheckData(data);    
         }
-        
+
+        public static byte[] CMD_RGB565()
+        {
+            byte[] data = new byte[8] { 0xA5, 0x5A, (byte)'T', 0x00, 0x00, 0x00, 0x00, 0x00 };
+            return CheckData(data);
+        }
+
+        public static byte[] CMD_JPEG_RGB565()
+        {
+            byte[] data = new byte[8] { 0xA5, 0x5A, (byte)'G', 0x00, 0x00, 0x00, 0x00, 0x00 };
+            return CheckData(data);
+        }
+
+        public static byte[] CMD_REGISTER()
+        {
+            byte[] data = new byte[8] { 0xA5, 0x5A, (byte)'C', 0x00, 0x00, 0x00, 0x00, 0x00 };
+            return CheckData(data);
+        }
     }
 }
